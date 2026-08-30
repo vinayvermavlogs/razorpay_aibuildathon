@@ -1,17 +1,21 @@
-# Cortex Shield — Autonomous Razorpay Revenue Recovery
+# 🛡️ Cortex Shield — Autonomous Razorpay Revenue Recovery
 
 > **Razorpay AI Builder Internship 2026 Submission**  
-> **Track:** Track 03 — AI Revenue Recovery
+> **Track:** Track 3 — AI Revenue Recovery  
+> **Target Stipend:** ₹75,000 / month (Bangalore)  
+> **Objective:** Turn revenue leakage into recoverable revenue through autonomous AI-driven detection, diagnosis, intervention, and recovery
+
 
 ---
 
-## 🏆 Executive Summary
+## 📌 Solution Overview
 
 Revenue leakage across **failed payments, subscription failures, checkout abandonment, and overdue receivables** can quickly turn into lost merchant revenue and involuntary churn.
 
 **Cortex Shield** closes this gap with an autonomous multi-agent recovery engine that **detects revenue at risk, diagnoses the root cause, scores recovery risk, chooses the next best action, and executes bounded recovery workflows**.
 
-**₹96.2L at risk → ₹18.6L recovered → 19.4% recovery → 8 cases → 343 failures → 5 loss types**
+📊 Recovery Metrics:
+**`₹96.2L at risk → ₹18.6L recovered → 19.4% recovery → 8 cases → 343 failures → 5 loss types`**
 
 It processes events such as `payment.failed`, `subscription.halted`, `invoice.payment_failed`, **checkout abandonment**, and **mandate authorization drops**, then triggers **smart retries, personalized WhatsApp/Email dunning, and UPI Intent/Checkout recovery links** with **guardrails, stopping rules, and a complete audit trail**.
 
@@ -23,127 +27,92 @@ It processes events such as `payment.failed`, `subscription.halted`, `invoice.pa
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Revenue Risk | Root Cause | Next Action | Retry / Stop | Recovery | Payment | Outcome |
 
-**`Detect → Diagnose → Decide → Guardrail → Execute → Verify → Recover`**
+**` Detect → Diagnose → Decide → Guardrail → Execute → Verify → Recover `**
 
 ---
 
-## 🤖 Multi-Agent Architecture
+## 🧩 Multi-Agent Architecture
 
-<div align="center">
+<div align="centre">
 
 <pre>
-┌─────────────────────────────────────────────────────────────┐
-│                      RAZORPAY EVENTS                        │
-│                                                             │
-│  payment.failed • subscription.halted • invoice.payment...  │
-│  Checkout Abandonment • Mandate Authorization Drop          │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ 🔍 AGENT 1 — FAILURE DIAGNOSER & RISK SCORING              │
-│                                                             │
-│ Root Cause Classification • Customer Risk Score             │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ ⚡ AGENT 2 — SMART RETRY & UPTIME ROUTER                    │
-│                                                             │
-│ Bank / Gateway Health • Retry Timing • Stop Rules           │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ 💬 AGENT 3 — CONVERSATIONAL DUNNING                        │
-│                                                             │
-│ Personalized WhatsApp / Email • Recovery Incentives        │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ 💳 AGENT 4 — RAZORPAY PAYMENT LINK DISPATCHER              │
-│                                                             │
-│ UPI Intent • Checkout Recovery • Payment Link              │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                      CUSTOMER PAYMENT                       │
-│                                                             │
-│              Pay → Verify → Recover Revenue                 │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ 📊 ANALYTICS & AUDIT                                       │
-│                                                             │
-│ ₹ Recovered • Status • Actions • Execution Logs             │
-└─────────────────────────────────────────────────────────────┘
+                                                        RAZORPAY EVENTS
+                                                              │
+                                      ┌───────────────────────┼───────────────────────┐
+                                      │                       │                       │
+                                payment.failed       checkout.abandoned        invoice.overdue
+                                      │                       │                       │
+                                      └───────────────────────┼───────────────────────┘
+                                                              │
+                                                              ▼
+                                               ┌─────────────────────────────┐
+                                               │    CORTEX SHIELD INGESTION  │
+                                               └──────────────┬──────────────┘
+                                                              │
+                                                              ▼
+                                               ┌─────────────────────────────┐
+                                               │         🔍 AGENT 1          │
+                                               │      FAILURE DIAGNOSER      │
+                                               │   Root Cause + Risk Score   │
+                                               └──────────────┬──────────────┘
+                                                              │
+                                                              ▼
+                                               ┌─────────────────────────────┐
+                                               │         ⚡ AGENT 2          │
+                                               │ SMART RETRY & UPTIME ROUTER │
+                                               │   When / Whether to Retry   │
+                                               └──────────────┬──────────────┘
+                                                              │
+                                                              ▼
+                                               ┌─────────────────────────────┐
+                                               │         💬 AGENT 3          │
+                                               │    CONVERSATIONAL DUNNING   │
+                                               │   WhatsApp / Email / Offer  │
+                                               └──────────────┬──────────────┘
+                                                              │
+                                                              ▼
+                                               ┌─────────────────────────────┐
+                                               │       💳 AGENT 4            │
+                                               │   PAYMENT LINK DISPATCHER   │
+                                               │   UPI / Checkout Recovery   │
+                                               └──────────────┬──────────────┘
+                                                              │
+                                                              ▼
+                                                        CUSTOMER PAYS
+                                                              │
+                                                              ▼
+                                                      REVENUE RECOVERED
+                                                              │
+                                                              ▼
+                                                      📊 AUDIT TRAIL
 </pre>
 
 </div>
 
-| Agent | Responsibility |
-|---|---|
-| 🔍 **Failure Diagnoser Agent** | Classifies root cause and calculates customer risk score |
-| ⚡ **Smart Retry & Uptime Router** | Schedules retries based on gateway/bank availability |
-| 💬 **Conversational Dunning Bot** | Generates personalized WhatsApp/Email recovery outreach |
-| 💳 **Razorpay Link Dispatcher** | Generates UPI Intent and Checkout recovery links |
-| 📊 **Analytics & Audit Layer** | Tracks recovery impact, actions and execution history |
+1. **Failure Diagnoser Agent:** Classifies failures into Bank Network Outage, Insufficient Funds, Expired Card, or Mandate Auth Drop and assigns a churn risk score (0–100).
+
+2. **Smart Retry & Uptime Router Agent:** Checks gateway health and selects the best retry time and route while avoiding active outages.
+
+3. **Conversational Dunning Agent:** Creates personalized WhatsApp/Email messages with targeted incentives for high-risk customers.
+
+4. **Recovery Link Dispatcher Agent:** Sends 1‑tap UPI Intent and Razorpay Checkout links to recover failed payments.
+
+5. **Guardrail Agent:** Enforces retry limits, cooldowns, incentive caps, and stopping rules.
+
+6. **Recovery Monitor Agent:** Tracks recovery outcomes and maintains a complete audit trail.
 
 ---
 
-## 🚀 Key Features
+## 🚀 Key Features & UI Sections
 
-| Feature | Description |
-|---|---|
-| **Revenue Dashboard** | ARR at Risk, Recovered ARR, Recovery Rate & Recovery Time |
-| **AI Simulator** | Simulates Razorpay payment-failure events and runs the agent pipeline |
-| **AI Diagnosis** | Root-cause classification with customer risk scoring |
-| **Smart Retry** | Uptime-aware retry scheduling to avoid redundant failures |
-| **AI Dunning** | Personalized WhatsApp/Email recovery messaging |
-| **Recovery Links** | UPI Intent & Checkout payment recovery |
-| **Campaign Management** | Tracks active, recovered and action-required cases |
-| **Audit Logs** | Complete recovery decision and execution timeline |
-| **Payment Portal** | Simulated customer checkout and successful recovery flow |
-| **Analytics** | Recovery funnel, failure breakdown and ₹ recovered |
-
----
-
-## 📊 Demo Metrics
-
-| Metric | Value |
-|---|---:|
-| **Revenue at Risk** | ₹96.2L |
-| **Revenue Recovered** | ₹18.6L |
-| **Recovery Rate** | 19.4% |
-| **Open Cases** | 8 |
-| **Payment Failures Analyzed** | 343 |
-| **Loss Types** | 5 |
-
-### Payment Failure Breakdown
-
-- **Soft Decline / Insufficient Funds:** 130 — **38%**
-- **Bank Network Outage / Downtime:** 89 — **26%**
-- **Card Expired / Invalid Details:** 62 — **18%**
-- **Mandate Drop / Autopay Auth:** 41 — **12%**
-- **OTP Timeout & Customer Abandonment:** 20 — **6%**
-
----
-
-## 🎯 Track 03 Alignment
-
-| Razorpay Requirement | Cortex Shield |
-|---|---|
-| Detect revenue at risk | Revenue-risk event detection |
-| Diagnose the problem | AI failure diagnosis + risk scoring |
-| Determine intervention | Next-best-action decision engine |
-| Execute recovery | Retry, dunning & payment recovery |
-| Bounded automation | Guardrails, approvals & stopping rules |
-| Measure money recovered | ₹ Recovered & Recovery Rate |
-| Audit trail | Complete decision & action logs |
-
+1. **Revenue Intelligence Dashboard**: Revenue at Risk, Recovered Revenue, Recovery Rate & Agent Status
+2. **AI Failure Simulator & Diagnosis**: Simulate failure events, identify root causes & calculate risk scores
+3. **Smart Recovery Engine**: Uptime-aware retries, guardrails, cooldowns & stopping rules
+4. **AI Dunning & Recovery Links**: Personalized WhatsApp / Email outreach with UPI Intent & Checkout recovery
+5. **Campaign Management**: Track recovery cases, actions, statuses & execution timelines
+6. **Customer Payment Portal**: Simulate UPI, Card & NetBanking recovery flows
+7. **Analytics & Audit**: Recovery funnel, failure breakdown, ₹ recovered & complete action history
+8. **Pitch & Architecture Guide**: Problem statement, agent architecture, data flow & Track 03 alignment
 ---
 
 ## 💻 Tech Stack
@@ -194,18 +163,10 @@ npm run build
 
 ## 🌐 Live Demo
 
-**[Cortex Shield — Live Demo](https://cortexshieldbuildathon.vercel.app/)**
+**[Cortex Shield Live ](https://cortexshieldbuildathon.vercel.app/)**
 
 **Dashboard → AI Simulator → Diagnosis → Decision → Recovery → Payment Portal → ₹ Recovered → Audit**
 
 ---
 
-<div align="center">
 
-**Built for Razorpay AI Builder Buildathon 2026**
-
-**Track 03 — AI Revenue Recovery**
-
-**Detect → Diagnose → Decide → Recover → Measure**
-
-</div>
