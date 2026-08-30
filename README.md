@@ -36,7 +36,7 @@ It processes events such as `payment.failed`, `subscription.halted`, `invoice.pa
 <div align="center">
 
 <pre>
-                                  RAZORPAY EVENTS
+RAZORPAY EVENTS
                                                               │
                                       ┌───────────────────────┼───────────────────────┐
                                       │                       │                       │
