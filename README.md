@@ -37,11 +37,11 @@ It processes events such as `payment.failed`, `subscription.halted`, `invoice.pa
 
 <pre>
 RAZORPAY EVENTS
-                                                              │
-                                      ┌───────────────────────┼───────────────────────┐
-                                      │                       │                       │
-                                payment.failed       checkout.abandoned        invoice.overdue
-                                      │                       │                       │
+                        │
+┌───────────────────────┼───────────────────────┐
+│                       │                       │
+payment.failed       checkout.abandoned        invoice.overdue
+│                       │                       │
                                       └───────────────────────┼───────────────────────┘
                                                               │
                                                               ▼
