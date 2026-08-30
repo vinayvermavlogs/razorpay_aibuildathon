@@ -33,10 +33,10 @@ It processes events such as `payment.failed`, `subscription.halted`, `invoice.pa
 
 ## 🧩 Multi-Agent Architecture
 
-<div align="centre">
+<div align="center">
 
 <pre>
-                                                        RAZORPAY EVENTS
+                                  RAZORPAY EVENTS
                                                               │
                                       ┌───────────────────────┼───────────────────────┐
                                       │                       │                       │
