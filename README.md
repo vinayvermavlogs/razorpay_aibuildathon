@@ -37,54 +37,54 @@ It processes events such as `payment.failed`, `subscription.halted`, `invoice.pa
 
 <pre>
 RAZORPAY EVENTS
-                        │
+│
 ┌───────────────────────┼───────────────────────┐
 │                       │                       │
 payment.failed       checkout.abandoned        invoice.overdue
 │                       │                       │
-                                      └───────────────────────┼───────────────────────┘
-                                                              │
-                                                              ▼
-                                               ┌─────────────────────────────┐
-                                               │    CORTEX SHIELD INGESTION  │
-                                               └──────────────┬──────────────┘
-                                                              │
-                                                              ▼
-                                               ┌─────────────────────────────┐
-                                               │         🔍 AGENT 1          │
-                                               │      FAILURE DIAGNOSER      │
-                                               │   Root Cause + Risk Score   │
-                                               └──────────────┬──────────────┘
-                                                              │
-                                                              ▼
-                                               ┌─────────────────────────────┐
-                                               │         ⚡ AGENT 2          │
-                                               │ SMART RETRY & UPTIME ROUTER │
-                                               │   When / Whether to Retry   │
-                                               └──────────────┬──────────────┘
-                                                              │
-                                                              ▼
-                                               ┌─────────────────────────────┐
-                                               │         💬 AGENT 3          │
-                                               │    CONVERSATIONAL DUNNING   │
-                                               │   WhatsApp / Email / Offer  │
-                                               └──────────────┬──────────────┘
-                                                              │
-                                                              ▼
-                                               ┌─────────────────────────────┐
-                                               │       💳 AGENT 4            │
-                                               │   PAYMENT LINK DISPATCHER   │
-                                               │   UPI / Checkout Recovery   │
-                                               └──────────────┬──────────────┘
-                                                              │
-                                                              ▼
-                                                        CUSTOMER PAYS
-                                                              │
-                                                              ▼
-                                                      REVENUE RECOVERED
-                                                              │
-                                                              ▼
-                                                      📊 AUDIT TRAIL
+└───────────────────────┼───────────────────────┘
+│
+▼
+┌─────────────────────────────┐
+│    CORTEX SHIELD INGESTION  │
+└──────────────┬──────────────┘
+│
+▼
+┌─────────────────────────────┐
+│         🔍 AGENT 1          │
+│      FAILURE DIAGNOSER      │
+│   Root Cause + Risk Score   │
+└──────────────┬──────────────┘
+│
+▼
+┌─────────────────────────────┐
+│         ⚡ AGENT 2          │
+│ SMART RETRY & UPTIME ROUTER │
+│   When / Whether to Retry   │
+└──────────────┬──────────────┘
+│
+▼
+┌─────────────────────────────┐
+│         💬 AGENT 3          │
+│    CONVERSATIONAL DUNNING   │
+│   WhatsApp / Email / Offer  │
+└──────────────┬──────────────┘
+│
+▼
+┌─────────────────────────────┐
+│       💳 AGENT 4            │
+│   PAYMENT LINK DISPATCHER   │
+│   UPI / Checkout Recovery   │
+└──────────────┬──────────────┘
+│
+▼
+         CUSTOMER PAYS
+│
+▼
+        REVENUE RECOVERED
+│
+▼
+        📊 AUDIT TRAIL
 </pre>
 
 </div>
