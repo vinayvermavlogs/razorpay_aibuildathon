@@ -78,13 +78,13 @@ payment.failed       checkout.abandoned        invoice.overdue
 └──────────────┬──────────────┘
 │
 ▼
-         CUSTOMER PAYS
+CUSTOMER PAYS
 │
 ▼
-        REVENUE RECOVERED
+REVENUE RECOVERED
 │
 ▼
-        📊 AUDIT TRAIL
+📊 AUDIT TRAIL
 </pre>
 
 </div>
